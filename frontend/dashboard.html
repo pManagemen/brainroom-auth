@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Brainroom</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow px-4 py-3 flex justify-between items-center">
+    <div class="text-xl font-bold text-indigo-600">Brainroom</div>
+    <button onclick="logout()" class="bg-white text-indigo-600 px-4 py-2 rounded shadow hover:bg-gray-100">Logout</button>
+  </nav>
+
+  <!-- Header Profil -->
+  <div class="bg-indigo-700 text-white py-8 px-4 md:px-12">
+    <div class="flex items-center gap-6 max-w-6xl mx-auto">
+      <div class="w-24 h-24 rounded-full bg-gray-600"></div>
+      <div>
+        <h2 class="text-2xl md:text-3xl font-semibold" id="userName">...</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs Navigasi -->
+  <div class="max-w-6xl mx-auto px-4 py-4 flex gap-4 text-gray-700 font-medium text-sm border-b">
+    <button class="border-b-2 border-black pb-2">Kursus <span id="academyCount" class="ml-1">0</span></button>
+    <button>Kuis</button>
+    <button>Guru</button>
+  </div>
+
+  <!-- Konten Kursus -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-4">
+      <label class="font-semibold text-gray-700">Tampilkan:</label>
+      <select class="border border-gray-300 rounded px-2 py-1 text-sm">
+        <option>Semua kelas</option>
+      </select>
+    </div>
+    <div id="classContainer" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </main>
+
+  <!-- Tombol Tambah Kelas -->
+  <button onclick="showModal()" class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white text-3xl w-14 h-14 rounded-full shadow-lg">+</button>
+
+  <!-- Modal Pilih Kelas -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+    <div class="bg-white p-6 rounded shadow-lg max-w-lg w-full relative">
+      <h3 class="text-xl font-semibold mb-4">Pilih Kelas</h3>
+      <div id="courseList" class="space-y-3"></div>
+      <button onclick="hideModal()" class="absolute top-2 right-2 text-gray-500 hover:text-black text-xl">&times;</button>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../models/Dashboard.js"></script>
+
+</body>
+</html>

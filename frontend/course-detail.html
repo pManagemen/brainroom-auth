@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detail Kursus</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Header -->
+  <nav class="bg-white shadow px-4 py-3 flex justify-between items-center">
+    <div class="text-xl font-bold text-indigo-600">Brainroom</div>
+    <a href="dashboard.html" class="text-sm text-blue-600 hover:underline">← Kembali ke Dashboard</a>
+  </nav>
+
+  <!-- Konten -->
+  <main class="max-w-4xl mx-auto py-8 px-4">
+    <h1 class="text-2xl font-bold text-indigo-700 mb-4" id="courseTitle">...</h1>
+    <div id="materialsContainer" class="space-y-4"></div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const subject = params.get('subject');
+    const grade = params.get('grade');
+
+    document.getElementById('courseTitle').textContent = `${subject} (Kelas ${grade})`;
+
+    async function loadCourseDetails() {
+      try {
+        const res = await axios.get('http://localhost:5000/api/courses');
+        const allCourses = res.data;
+        const match = allCourses.find(c => c.subject === subject && c.grade === grade);
+        const container = document.getElementById('materialsContainer');
+
+        if (!match || !match.materials || match.materials.length === 0) {
+          container.innerHTML = `<p class="text-gray-600">Materi tidak ditemukan.</p>`;
+          return;
+        }
+
+        match.materials.forEach((m, i) => {
+          const item = document.createElement('div');
+          item.className = 'bg-white p-4 rounded shadow border-l-4 border-indigo-500';
+          item.innerHTML = `
+            <button onclick="toggleDetail(${i})" class="text-left w-full font-semibold text-gray-800">${m.title}</button>
+            <div id="desc-${i}" class="hidden mt-2 text-sm text-gray-600">${m.description}</div>
+          `;
+          container.appendChild(item);
+        });
+      } catch (err) {
+        console.error(err);
+        document.getElementById('materialsContainer').innerHTML = `<p class="text-red-500">Gagal memuat materi.</p>`;
+      }
+    }
+
+    function toggleDetail(index) {
+      const el = document.getElementById(`desc-${index}`);
+      el.classList.toggle('hidden');
+    }
+
+    loadCourseDetails();
+  </script>
+
+</body>
+</html>
