@@ -18,7 +18,7 @@ jobs:
       with:
         node-version: '18'
 
-    - name: Install dependencies (optional)
+    - name: Install dependencies
       run: |
         cd frontend
         if [ -f package.json ]; then
