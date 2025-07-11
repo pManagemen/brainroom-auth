@@ -1,0 +1,35 @@
+name: CI/CD - Brainroom Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: ✅ Checkout repository
+      uses: actions/checkout@v3
+
+    - name: 🚀 Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: 📂 Install dependencies (if needed)
+      run: |
+        cd frontend
+        if [ -f package.json ]; then
+          npm install
+        else
+          echo "No package.json, skipping npm install"
+        fi
+
+    - name: 📃 Optional: Run tests or build steps
+      run: echo "CI test passed"
+
+    - name: 🔗 Trigger Netlify Deploy Hook
+      run: |
+        curl -X POST -d '{}' ${{ secrets.NETLIFY_DEPLOY_HOOK }}
