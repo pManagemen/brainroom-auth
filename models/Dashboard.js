@@ -22,7 +22,7 @@ function hideModal() {
 
 async function loadCourses() {
   try {
-    const res = await axios.get('http://localhost:5000/api/courses');
+    const res = await axios.get('https://brainroom-auth-production.up.railway.app/api/courses');
     const list = document.getElementById('courseList');
     list.innerHTML = '';
     res.data.forEach(course => {
