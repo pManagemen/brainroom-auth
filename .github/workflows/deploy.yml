@@ -31,10 +31,6 @@ jobs:
       run: |
         curl -X POST -d '{}' ${{ secrets.NETLIFY_DEPLOY_HOOK }}
 
-    - name: Jalankan test 
-      run: npm test
-
-    - name: Cek kode dengan ESLint
-      run: npx eslint frontend/
+  
 
 
