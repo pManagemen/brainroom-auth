@@ -42,7 +42,7 @@
 
         if (response.ok) {
           // Simpan ke localStorage
-         
+          localStorage.setItem('user', JSON.stringify(result.user));
           window.location.href = 'dashboard.html';
         } else {
           alert(result.message || 'Login gagal');
