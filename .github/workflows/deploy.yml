@@ -31,6 +31,8 @@ jobs:
       run: |
         curl -X POST -d '{}' ${{ secrets.NETLIFY_DEPLOY_HOOK }}
 
-  
+    - name: Skip test (belum tersedia)
+      run: echo "Skipping tests..."
+
 
 
