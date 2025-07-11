@@ -41,7 +41,7 @@
       const password = document.getElementById('password').value;
 
       try {
-        const res = await fetch('https://brainroom-production.up.railway.app/api/register', {
+        const res = await fetch('https://brainroom-auth-production.up.railway.app/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, password })

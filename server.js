@@ -37,3 +37,4 @@ app.listen(PORT, () => {
 });
 
 console.log('MONGO_URI dari .env:', process.env.MONGO_URI);
+
